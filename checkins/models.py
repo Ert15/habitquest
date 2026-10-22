@@ -27,7 +27,6 @@ class CheckIn(models.Model):
 
     class Meta:
         ordering = ["-date"]
-        # one habit can be checked only one time per day
         constraints = [
             models.UniqueConstraint(
                 fields=["habit", "date"],

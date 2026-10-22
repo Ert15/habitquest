@@ -18,7 +18,6 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ("username", "email")
     ordering = ("-xp",)
 
-    # add our own fields to the standard user form
     fieldsets = UserAdmin.fieldsets + (
         ("HabitQuest", {"fields": ("bio", "xp", "level")}),
     )
