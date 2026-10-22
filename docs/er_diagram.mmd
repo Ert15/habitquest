@@ -1,0 +1,71 @@
+erDiagram
+    USER {
+        bigint id PK
+        string username
+        string email
+        text bio
+        int xp
+        int level
+    }
+    CATEGORY {
+        bigint id PK
+        string name
+        string color
+    }
+    HABIT {
+        bigint id PK
+        bigint user_id FK
+        bigint category_id FK
+        string title
+        text description
+        string frequency
+        int xp_reward
+        bool is_active
+        datetime created_at
+    }
+    CHECKIN {
+        bigint id PK
+        bigint habit_id FK
+        date date
+        int mood
+        string note
+        datetime created_at
+    }
+    ACHIEVEMENT {
+        bigint id PK
+        string name
+        text description
+        int required_checkins
+        int bonus_xp
+    }
+    USER_ACHIEVEMENT {
+        bigint id PK
+        bigint user_id FK
+        bigint achievement_id FK
+        datetime earned_at
+    }
+    CHALLENGE {
+        bigint id PK
+        bigint creator_id FK
+        string title
+        text description
+        date start_date
+        date end_date
+        bool is_public
+    }
+    PARTICIPATION {
+        bigint id PK
+        bigint challenge_id FK
+        bigint user_id FK
+        int score
+        datetime joined_at
+    }
+
+    USER ||--o{ HABIT : "has"
+    CATEGORY ||--o{ HABIT : "groups"
+    HABIT ||--o{ CHECKIN : "has"
+    USER ||--o{ USER_ACHIEVEMENT : "earns"
+    ACHIEVEMENT ||--o{ USER_ACHIEVEMENT : "given as"
+    USER ||--o{ CHALLENGE : "creates"
+    USER ||--o{ PARTICIPATION : "joins"
+    CHALLENGE ||--o{ PARTICIPATION : "has"
